@@ -48,10 +48,6 @@ export default [
     link: 'https://mui.com/material-ui/react-popper/'
   },
   {
-    component: 'Progress',
-    link: 'https://mui.com/material-ui/react-progress/'
-  },
-  {
     component: 'Speed Dial',
     link: 'https://mui.com/material-ui/react-speed-dial/'
   },

@@ -46,6 +46,28 @@ export default ProgressCircularControlledUncontrolled
   </pre>
 )
 
+export const ProgressCircularColorsJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import CircularProgress from '@mui/material/CircularProgress'
+
+const ProgressCircularColors = () => {
+  return (
+    <div className='demo-space-x'>
+      <CircularProgress color='secondary' />
+      <CircularProgress color='success' />
+      <CircularProgress color='error' />
+      <CircularProgress color='warning' />
+      <CircularProgress color='info' />
+    </div>
+  )
+}
+
+export default ProgressCircularColors
+`}</code>
+  </pre>
+)
+
 export const ProgressCircularCustomizationJSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** MUI Imports
@@ -133,137 +155,6 @@ export default ProgressCircularWithLabel
   </pre>
 )
 
-export const ProgressLinearColorsJSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** MUI Imports
-import Stack from '@mui/material/Stack'
-import LinearProgress from '@mui/material/LinearProgress'
-
-const ProgressLinearColors = () => {
-  return (
-    <Stack spacing={4} sx={{ width: '100%' }}>
-      <LinearProgress color='secondary' />
-      <LinearProgress color='success' />
-      <LinearProgress color='error' />
-      <LinearProgress color='warning' />
-      <LinearProgress color='info' />
-    </Stack>
-  )
-}
-
-export default ProgressLinearColors
-`}</code>
-  </pre>
-)
-
-export const ProgressLinearCustomizationJSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** React Imports
-import React from 'react'
-
-// ** MUI Imports
-import { styled } from '@mui/material/styles'
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress'
-
-const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  borderRadius: 5,
-  [&.{linearProgressClasses.colorPrimary}]: {
-    backgroundColor: theme.palette.customColors.trackBg
-  },
-  [& .{linearProgressClasses.bar}]: {
-    borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8'
-  }
-}))
-
-const ProcessLinearCustomization = () => {
-  return <BorderLinearProgress variant='determinate' value={70} />
-}
-
-export default ProcessLinearCustomization
-`}</code>
-  </pre>
-)
-
-export const ProgressCircularColorsJSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** MUI Imports
-import CircularProgress from '@mui/material/CircularProgress'
-
-const ProgressCircularColors = () => {
-  return (
-    <div className='demo-space-x'>
-      <CircularProgress color='secondary' />
-      <CircularProgress color='success' />
-      <CircularProgress color='error' />
-      <CircularProgress color='warning' />
-      <CircularProgress color='info' />
-    </div>
-  )
-}
-
-export default ProgressCircularColors
-`}</code>
-  </pre>
-)
-
-export const ProgressCircularIndeterminateJSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** MUI Imports
-import CircularProgress from '@mui/material/CircularProgress'
-
-const ProgressCircularIndeterminate = () => {
-  return <CircularProgress />
-}
-
-export default ProgressCircularIndeterminate
-`}</code>
-  </pre>
-)
-
-export const ProgressLinearWithLabelJSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** React Imports
-import { useEffect, useState } from 'react'
-
-// ** MUI Imports
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import LinearProgress from '@mui/material/LinearProgress'
-
-const LinearProgressWithLabel = props => {
-  return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Box sx={{ width: '100%', mr: 1 }}>
-        <LinearProgress variant='determinate' {...props} />
-      </Box>
-      <Box sx={{ minWidth: 35 }}>
-        <Typography variant='body2' color='text.secondary'>{{Math.round(props.value)}%}</Typography>
-      </Box>
-    </Box>
-  )
-}
-
-export default function ProcessLinearWithLabel() {
-  // ** State
-  const [progress, setProgress] = useState(10)
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress(prevProgress => (prevProgress >= 100 ? 10 : prevProgress + 10))
-    }, 800)
-
-    return () => {
-      clearInterval(timer)
-    }
-  }, [])
-
-  return <LinearProgressWithLabel value={progress} />
-}
-`}</code>
-  </pre>
-)
-
 export const ProgressLinearBufferJSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** React Imports
@@ -309,16 +200,25 @@ export default ProcessLinearBuffer
   </pre>
 )
 
-export const ProgressLinearIndeterminateJSXCode = (
+export const ProgressLinearColorsJSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** MUI Imports
+import Stack from '@mui/material/Stack'
 import LinearProgress from '@mui/material/LinearProgress'
 
-const ProgressLinearIndeterminate = () => {
-  return <LinearProgress />
+const ProgressLinearColors = () => {
+  return (
+    <Stack spacing={4} sx={{ width: '100%' }}>
+      <LinearProgress color='secondary' />
+      <LinearProgress color='success' />
+      <LinearProgress color='error' />
+      <LinearProgress color='warning' />
+      <LinearProgress color='info' />
+    </Stack>
+  )
 }
 
-export default ProgressLinearIndeterminate
+export default ProgressLinearColors
 `}</code>
   </pre>
 )
@@ -372,56 +272,116 @@ export default ProgressLinearControlledUncontrolled
   </pre>
 )
 
-export const ProgressCircularCustomizationTSXCode = (
+export const ProgressLinearCustomizationJSXCode = (
   <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** MUI Imports
-import Box from '@mui/material/Box'
+    <code className='language-jsx'>{`// ** React Imports
+import React from 'react'
+
+// ** MUI Imports
 import { styled } from '@mui/material/styles'
-import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress'
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress'
 
-const CircularProgressDeterminate = styled(CircularProgress)<CircularProgressProps>(({ theme }) => ({
-  color: theme.palette.customColors.trackBg
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 10,
+  borderRadius: 5,
+  [&.{linearProgressClasses.colorPrimary}]: {
+    backgroundColor: theme.palette.customColors.trackBg
+  },
+  [& .{linearProgressClasses.bar}]: {
+    borderRadius: 5,
+    backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8'
+  }
 }))
 
-const CircularProgressIndeterminate = styled(CircularProgress)<CircularProgressProps>(({ theme }) => ({
-  left: 0,
-  position: 'absolute',
-  animationDuration: '550ms',
-  color: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8'
-}))
-
-const ProgressCircularCustomization = () => {
-  return (
-    <Box sx={{ position: 'relative' }}>
-      <CircularProgressDeterminate variant='determinate' size={50} thickness={5} value={100} />
-      <CircularProgressIndeterminate variant='indeterminate' disableShrink size={50} thickness={5} />
-    </Box>
-  )
+const ProcessLinearCustomization = () => {
+  return <BorderLinearProgress variant='determinate' value={70} />
 }
 
-export default ProgressCircularCustomization
+export default ProcessLinearCustomization
 `}</code>
   </pre>
 )
 
-export const ProgressCircularColorsTSXCode = (
+export const ProgressLinearWithLabelJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { useEffect, useState } from 'react'
+
+// ** MUI Imports
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import LinearProgress from '@mui/material/LinearProgress'
+
+const LinearProgressWithLabel = props => {
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ width: '100%', mr: 1 }}>
+        <LinearProgress variant='determinate' {...props} />
+      </Box>
+      <Box sx={{ minWidth: 35 }}>
+        <Typography variant='body2' color='text.secondary'>{{Math.round(props.value)}%}</Typography>
+      </Box>
+    </Box>
+  )
+}
+
+export default function ProcessLinearWithLabel() {
+  // ** State
+  const [progress, setProgress] = useState(10)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress(prevProgress => (prevProgress >= 100 ? 10 : prevProgress + 10))
+    }, 800)
+
+    return () => {
+      clearInterval(timer)
+    }
+  }, [])
+
+  return <LinearProgressWithLabel value={progress} />
+}
+`}</code>
+  </pre>
+)
+
+export const ProgressLinearIndeterminateJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import LinearProgress from '@mui/material/LinearProgress'
+
+const ProgressLinearIndeterminate = () => {
+  return <LinearProgress />
+}
+
+export default ProgressLinearIndeterminate
+`}</code>
+  </pre>
+)
+
+export const ProgressCircularIndeterminateJSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** MUI Imports
 import CircularProgress from '@mui/material/CircularProgress'
 
-const ProgressCircularColors = () => {
-  return (
-    <div className='demo-space-x'>
-      <CircularProgress color='secondary' />
-      <CircularProgress color='success' />
-      <CircularProgress color='error' />
-      <CircularProgress color='warning' />
-      <CircularProgress color='info' />
-    </div>
-  )
+const ProgressCircularIndeterminate = () => {
+  return <CircularProgress />
 }
 
-export default ProgressCircularColors
+export default ProgressCircularIndeterminate
+`}</code>
+  </pre>
+)
+
+export const ProgressCircularIndeterminateTSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import CircularProgress from '@mui/material/CircularProgress'
+
+const ProgressCircularIndeterminate = () => {
+  return <CircularProgress />
+}
+
+export default ProgressCircularIndeterminate
 `}</code>
   </pre>
 )
@@ -475,6 +435,86 @@ export default ProgressCircularControlledUncontrolled
   </pre>
 )
 
+export const ProgressCircularCustomizationTSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Box from '@mui/material/Box'
+import { styled } from '@mui/material/styles'
+import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress'
+
+const CircularProgressDeterminate = styled(CircularProgress)<CircularProgressProps>(({ theme }) => ({
+  color: theme.palette.customColors.trackBg
+}))
+
+const CircularProgressIndeterminate = styled(CircularProgress)<CircularProgressProps>(({ theme }) => ({
+  left: 0,
+  position: 'absolute',
+  animationDuration: '550ms',
+  color: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8'
+}))
+
+const ProgressCircularCustomization = () => {
+  return (
+    <Box sx={{ position: 'relative' }}>
+      <CircularProgressDeterminate variant='determinate' size={50} thickness={5} value={100} />
+      <CircularProgressIndeterminate variant='indeterminate' disableShrink size={50} thickness={5} />
+    </Box>
+  )
+}
+
+export default ProgressCircularCustomization
+`}</code>
+  </pre>
+)
+
+export const ProgressLinearBufferTSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { useEffect, useRef, useState } from 'react'
+
+// ** MUI Imports
+import LinearProgress from '@mui/material/LinearProgress'
+
+const ProcessLinearBuffer = () => {
+  // ** States
+  const [buffer, setBuffer] = useState<number>(10)
+  const [progress, setProgress] = useState<number>(0)
+
+  // eslint-disable-next-line
+  const progressRef = useRef(() => {})
+
+  useEffect(() => {
+    progressRef.current = () => {
+      if (progress > 100) {
+        setProgress(0)
+        setBuffer(10)
+      } else {
+        const diff = Math.random() * 10
+        const diff2 = Math.random() * 10
+        setProgress(progress + diff)
+        setBuffer(progress + diff + diff2)
+      }
+    }
+  })
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      progressRef.current()
+    }, 500)
+
+    return () => {
+      clearInterval(timer)
+    }
+  }, [])
+
+  return <LinearProgress variant='buffer' value={progress} valueBuffer={buffer} />
+}
+
+export default ProcessLinearBuffer
+`}</code>
+  </pre>
+)
+
 export const ProgressLinearCustomizationTSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** React Imports
@@ -501,6 +541,71 @@ const ProcessLinearCustomization = () => {
 }
 
 export default ProcessLinearCustomization
+`}</code>
+  </pre>
+)
+
+export const ProgressCircularColorsTSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import CircularProgress from '@mui/material/CircularProgress'
+
+const ProgressCircularColors = () => {
+  return (
+    <div className='demo-space-x'>
+      <CircularProgress color='secondary' />
+      <CircularProgress color='success' />
+      <CircularProgress color='error' />
+      <CircularProgress color='warning' />
+      <CircularProgress color='info' />
+    </div>
+  )
+}
+
+export default ProgressCircularColors
+`}</code>
+  </pre>
+)
+
+export const ProgressLinearWithLabelTSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { useEffect, useState } from 'react'
+
+// ** MUI Imports
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress'
+
+const LinearProgressWithLabel = (props: LinearProgressProps & { value: number }) => {
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ width: '100%', mr: 1 }}>
+        <LinearProgress variant='determinate' {...props} />
+      </Box>
+      <Box sx={{ minWidth: 35 }}>
+        <Typography variant='body2' color='text.secondary'>{{Math.round(props.value)}%}</Typography>
+      </Box>
+    </Box>
+  )
+}
+
+export default function ProcessLinearWithLabel() {
+  // ** State
+  const [progress, setProgress] = useState<number>(10)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress(prevProgress => (prevProgress >= 100 ? 10 : prevProgress + 10))
+    }, 800)
+
+    return () => {
+      clearInterval(timer)
+    }
+  }, [])
+
+  return <LinearProgressWithLabel value={progress} />
+}
 `}</code>
   </pre>
 )
@@ -561,148 +666,6 @@ export default ProgressCircularWithLabel
   </pre>
 )
 
-export const ProgressLinearWithLabelTSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** React Imports
-import { useEffect, useState } from 'react'
-
-// ** MUI Imports
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress'
-
-const LinearProgressWithLabel = (props: LinearProgressProps & { value: number }) => {
-  return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Box sx={{ width: '100%', mr: 1 }}>
-        <LinearProgress variant='determinate' {...props} />
-      </Box>
-      <Box sx={{ minWidth: 35 }}>
-        <Typography variant='body2' color='text.secondary'>{{Math.round(props.value)}%}</Typography>
-      </Box>
-    </Box>
-  )
-}
-
-export default function ProcessLinearWithLabel() {
-  // ** State
-  const [progress, setProgress] = useState<number>(10)
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress(prevProgress => (prevProgress >= 100 ? 10 : prevProgress + 10))
-    }, 800)
-
-    return () => {
-      clearInterval(timer)
-    }
-  }, [])
-
-  return <LinearProgressWithLabel value={progress} />
-}
-`}</code>
-  </pre>
-)
-
-export const ProgressLinearColorsTSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** MUI Imports
-import Stack from '@mui/material/Stack'
-import LinearProgress from '@mui/material/LinearProgress'
-
-const ProgressLinearColors = () => {
-  return (
-    <Stack spacing={4} sx={{ width: '100%' }}>
-      <LinearProgress color='secondary' />
-      <LinearProgress color='success' />
-      <LinearProgress color='error' />
-      <LinearProgress color='warning' />
-      <LinearProgress color='info' />
-    </Stack>
-  )
-}
-
-export default ProgressLinearColors
-`}</code>
-  </pre>
-)
-
-export const ProgressLinearBufferTSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** React Imports
-import { useEffect, useRef, useState } from 'react'
-
-// ** MUI Imports
-import LinearProgress from '@mui/material/LinearProgress'
-
-const ProcessLinearBuffer = () => {
-  // ** States
-  const [buffer, setBuffer] = useState<number>(10)
-  const [progress, setProgress] = useState<number>(0)
-
-  // eslint-disable-next-line
-  const progressRef = useRef(() => {})
-
-  useEffect(() => {
-    progressRef.current = () => {
-      if (progress > 100) {
-        setProgress(0)
-        setBuffer(10)
-      } else {
-        const diff = Math.random() * 10
-        const diff2 = Math.random() * 10
-        setProgress(progress + diff)
-        setBuffer(progress + diff + diff2)
-      }
-    }
-  })
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      progressRef.current()
-    }, 500)
-
-    return () => {
-      clearInterval(timer)
-    }
-  }, [])
-
-  return <LinearProgress variant='buffer' value={progress} valueBuffer={buffer} />
-}
-
-export default ProcessLinearBuffer
-`}</code>
-  </pre>
-)
-
-export const ProgressLinearIndeterminateTSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** MUI Imports
-import LinearProgress from '@mui/material/LinearProgress'
-
-const ProgressLinearIndeterminate = () => {
-  return <LinearProgress />
-}
-
-export default ProgressLinearIndeterminate
-`}</code>
-  </pre>
-)
-
-export const ProgressCircularIndeterminateTSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** MUI Imports
-import CircularProgress from '@mui/material/CircularProgress'
-
-const ProgressCircularIndeterminate = () => {
-  return <CircularProgress />
-}
-
-export default ProgressCircularIndeterminate
-`}</code>
-  </pre>
-)
-
 export const ProgressLinearControlledUncontrolledTSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** React Imports
@@ -749,6 +712,43 @@ const ProgressLinearControlledUncontrolled = () => {
 }
 
 export default ProgressLinearControlledUncontrolled
+`}</code>
+  </pre>
+)
+
+export const ProgressLinearColorsTSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Stack from '@mui/material/Stack'
+import LinearProgress from '@mui/material/LinearProgress'
+
+const ProgressLinearColors = () => {
+  return (
+    <Stack spacing={4} sx={{ width: '100%' }}>
+      <LinearProgress color='secondary' />
+      <LinearProgress color='success' />
+      <LinearProgress color='error' />
+      <LinearProgress color='warning' />
+      <LinearProgress color='info' />
+    </Stack>
+  )
+}
+
+export default ProgressLinearColors
+`}</code>
+  </pre>
+)
+
+export const ProgressLinearIndeterminateTSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import LinearProgress from '@mui/material/LinearProgress'
+
+const ProgressLinearIndeterminate = () => {
+  return <LinearProgress />
+}
+
+export default ProgressLinearIndeterminate
 `}</code>
   </pre>
 )

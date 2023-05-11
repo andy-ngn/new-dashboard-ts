@@ -17,6 +17,7 @@ import MuiLink from './link'
 import MuiList from './list'
 import MuiMenu from './menu'
 import MuiTabs from './tabs'
+import FabButton from './fab'
 import MuiInput from './input'
 import MuiPaper from './paper'
 import MuiTable from './table'
@@ -56,6 +57,7 @@ const Overrides = (settings: Settings) => {
   const avatars = MuiAvatar()
   const divider = MuiDivider()
   const tooltip = MuiTooltip()
+  const fabButton = FabButton()
   const alerts = MuiAlerts(mode)
   const dialog = MuiDialog(skin)
   const backdrop = MuiBackdrop()
@@ -94,6 +96,7 @@ const Overrides = (settings: Settings) => {
     timeline,
     accordion,
     MuiSelect,
+    fabButton,
     breadcrumb,
     pagination,
     autocomplete,

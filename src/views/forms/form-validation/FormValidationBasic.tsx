@@ -346,7 +346,7 @@ const FormValidationBasic = () => {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{ pt: theme => `${theme.spacing(2)} !important` }}>
               <FormControl>
                 <Controller
                   name='checkbox'

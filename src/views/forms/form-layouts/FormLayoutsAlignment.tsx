@@ -85,14 +85,10 @@ const FormLayoutsAlignment = () => {
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                label='Remember me'
-                control={<Checkbox name='form-layouts-alignment-checkbox' />}
-                sx={{ '& .MuiButtonBase-root': { pt: 0, pb: 0 } }}
-              />
+            <Grid item xs={12} sx={{ pt: theme => `${theme.spacing(2)} !important` }}>
+              <FormControlLabel label='Remember me' control={<Checkbox name='form-layouts-alignment-checkbox' />} />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{ pt: theme => `${theme.spacing(2)} !important` }}>
               <Button size='large' type='submit' variant='contained' sx={{ width: '100%' }}>
                 Login
               </Button>

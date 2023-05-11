@@ -1,3 +1,64 @@
+export const PickersBasicJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { useState } from 'react'
+
+// ** MUI Imports
+import Box from '@mui/material/Box'
+
+// ** Third Party Imports
+import DatePicker from 'react-datepicker'
+
+// ** Custom Component Imports
+import CustomInput from './PickersCustomInput'
+
+const PickersBasic = ({ popperPlacement }) => {
+  // ** States
+  const [date, setDate] = useState(new Date())
+
+  return (
+    <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
+      <div>
+        <DatePicker
+          selected={date}
+          id='basic-input'
+          popperPlacement={popperPlacement}
+          onChange={date => setDate(date)}
+          placeholderText='Click to select a date'
+          customInput={<CustomInput label='Basic' />}
+        />
+      </div>
+      <div>
+        <DatePicker
+          disabled
+          selected={date}
+          id='disabled-input'
+          popperPlacement={popperPlacement}
+          onChange={date => setDate(date)}
+          placeholderText='Click to select a date'
+          customInput={<CustomInput label='Disabled' />}
+        />
+      </div>
+      <div>
+        <DatePicker
+          readOnly
+          selected={date}
+          id='read-only-input'
+          popperPlacement={popperPlacement}
+          onChange={date => setDate(date)}
+          placeholderText='Click to select a date'
+          customInput={<CustomInput readOnly label='Readonly' />}
+        />
+      </div>
+    </Box>
+  )
+}
+
+export default PickersBasic
+`}</code>
+  </pre>
+)
+
 export const PickersCallbacksJSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** React Imports
@@ -93,7 +154,7 @@ const PickersCustomization = ({ popperPlacement }) => {
         <DatePicker
           id='custom-format'
           selected={dateFormat}
-          dateFormat='MMMM d, yyyy h:mm aa'
+          dateFormat='MMMM d, yyyy'
           popperPlacement={popperPlacement}
           onChange={date => setDateFormat(date)}
           customInput={<CustomInput label='Custom Date Format' />}
@@ -118,153 +179,114 @@ export default PickersCustomization
   </pre>
 )
 
-export const PickersBasicJSXCode = (
+export const PickersLocaleJSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** React Imports
 import { useState } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
-
-// ** Third Party Imports
-import DatePicker from 'react-datepicker'
+import fr from 'date-fns/locale/fr'
+import ar from 'date-fns/locale/ar-SA'
+import en from 'date-fns/locale/en-US'
+import { useTranslation } from 'react-i18next'
+import DatePicker, { registerLocale } from 'react-datepicker'
 
 // ** Custom Component Imports
 import CustomInput from './PickersCustomInput'
 
-const PickersBasic = ({ popperPlacement }) => {
+const langObj = { fr, ar, en }
+
+const PickersLocale = ({ popperPlacement }) => {
   // ** States
   const [date, setDate] = useState(new Date())
+  const [time, setTime] = useState(new Date())
+
+  // ** Hooks
+  const { i18n } = useTranslation()
+  registerLocale(i18n.language, langObj[i18n.language])
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
       <div>
         <DatePicker
           selected={date}
-          id='basic-input'
+          id='locale-picker'
+          locale={i18n.language}
           popperPlacement={popperPlacement}
           onChange={date => setDate(date)}
-          placeholderText='Click to select a date'
-          customInput={<CustomInput label='Basic' />}
-        />
-      </div>
-      <div>
-        <DatePicker
-          disabled
-          selected={date}
-          id='disabled-input'
-          popperPlacement={popperPlacement}
-          onChange={date => setDate(date)}
-          placeholderText='Click to select a date'
-          customInput={<CustomInput label='Disabled' />}
-        />
-      </div>
-      <div>
-        <DatePicker
-          readOnly
-          selected={date}
-          id='read-only-input'
-          popperPlacement={popperPlacement}
-          onChange={date => setDate(date)}
-          placeholderText='Click to select a date'
-          customInput={<CustomInput readOnly label='Readonly' />}
-        />
-      </div>
-    </Box>
-  )
-}
-
-export default PickersBasic
-`}</code>
-  </pre>
-)
-
-export const PickersIncludeExcludeJSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** React Imports
-import { useState } from 'react'
-
-// ** MUI Imports
-import Box from '@mui/material/Box'
-
-// ** Third Party Imports
-import addDays from 'date-fns/addDays'
-import subDays from 'date-fns/subDays'
-import setHours from 'date-fns/setHours'
-import DatePicker from 'react-datepicker'
-import setMinutes from 'date-fns/setMinutes'
-
-// ** Custom Component Imports
-import CustomInput from './PickersCustomInput'
-
-const PickersIncludeExclude = ({ popperPlacement }) => {
-  // ** States
-  const [date, setDate] = useState(new Date())
-  const [dateExclude, setDateExclude] = useState(new Date())
-  const [time, setTime] = useState(setHours(setMinutes(new Date(), 0), 18))
-  const [timeExclude, setTimeExclude] = useState(setHours(setMinutes(new Date(), 0), 18))
-
-  return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
-      <div>
-        <DatePicker
-          selected={date}
-          id='include-dates'
-          popperPlacement={popperPlacement}
-          onChange={date => setDate(date)}
-          customInput={<CustomInput label='Include Dates' />}
-          includeDates={[new Date(), addDays(new Date(), 1)]}
-        />
-      </div>
-      <div>
-        <DatePicker
-          id='exclude-dates'
-          selected={dateExclude}
-          popperPlacement={popperPlacement}
-          onChange={date => setDateExclude(date)}
-          customInput={<CustomInput label='Exclude Dates' />}
-          excludeDates={[subDays(new Date(), 1), subDays(new Date(), 2)]}
+          customInput={<CustomInput label='Locale Dates' />}
         />
       </div>
       <div>
         <DatePicker
           showTimeSelect
           selected={time}
-          id='include-time'
+          id='locale-time'
+          locale={i18n.language}
           dateFormat='MM/dd/yyyy h:mm aa'
           popperPlacement={popperPlacement}
           onChange={date => setTime(date)}
-          customInput={<CustomInput label='Include Time' />}
-          includeTimes={[
-            setHours(setMinutes(new Date(), 0), 17),
-            setHours(setMinutes(new Date(), 30), 18),
-            setHours(setMinutes(new Date(), 30), 19),
-            setHours(setMinutes(new Date(), 30), 17)
-          ]}
-        />
-      </div>
-      <div>
-        <DatePicker
-          showTimeSelect
-          id='exclude-time'
-          selected={timeExclude}
-          dateFormat='MM/dd/yyyy h:mm aa'
-          popperPlacement={popperPlacement}
-          onChange={date => setTimeExclude(date)}
-          customInput={<CustomInput label='Exclude Time' />}
-          excludeTimes={[
-            setHours(setMinutes(new Date(), 0), 17),
-            setHours(setMinutes(new Date(), 30), 18),
-            setHours(setMinutes(new Date(), 30), 19),
-            setHours(setMinutes(new Date(), 30), 17)
-          ]}
+          customInput={<CustomInput label='Locale Time' />}
         />
       </div>
     </Box>
   )
 }
 
-export default PickersIncludeExclude
+export default PickersLocale
+`}</code>
+  </pre>
+)
+
+export const PickersMinMaxJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { useState } from 'react'
+
+// ** MUI Imports
+import Box from '@mui/material/Box'
+
+// ** Third Party Imports
+import subDays from 'date-fns/subDays'
+import addDays from 'date-fns/addDays'
+import DatePicker from 'react-datepicker'
+
+// ** Custom Component Imports
+import CustomInput from './PickersCustomInput'
+
+const PickersMinMax = ({ popperPlacement }) => {
+  // ** States
+  const [minDate, setMinDate] = useState(new Date())
+  const [maxDate, setMaxDate] = useState(new Date())
+
+  return (
+    <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
+      <div>
+        <DatePicker
+          id='min-date'
+          selected={minDate}
+          minDate={subDays(new Date(), 5)}
+          popperPlacement={popperPlacement}
+          onChange={date => setMinDate(date)}
+          customInput={<CustomInput label='Min Date' />}
+        />
+      </div>
+      <div>
+        <DatePicker
+          id='max-date'
+          selected={maxDate}
+          maxDate={addDays(new Date(), 5)}
+          popperPlacement={popperPlacement}
+          onChange={date => setMaxDate(date)}
+          customInput={<CustomInput label='Max Date' />}
+        />
+      </div>
+    </Box>
+  )
+}
+
+export default PickersMinMax
 `}</code>
   </pre>
 )
@@ -334,7 +356,7 @@ export default PickersMonthYearDropdowns
   </pre>
 )
 
-export const PickersMinMaxJSXCode = (
+export const PickersMonthYearQuarterJSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** React Imports
 import { useState } from 'react'
@@ -343,67 +365,57 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 
 // ** Third Party Imports
-import subDays from 'date-fns/subDays'
-import addDays from 'date-fns/addDays'
 import DatePicker from 'react-datepicker'
 
 // ** Custom Component Imports
 import CustomInput from './PickersCustomInput'
 
-const PickersMinMax = ({ popperPlacement }) => {
+const PickersMonthYear = ({ popperPlacement }) => {
   // ** States
-  const [minDate, setMinDate] = useState(new Date())
-  const [maxDate, setMaxDate] = useState(new Date())
+  const [year, setYear] = useState(new Date())
+  const [month, setMonth] = useState(new Date())
+  const [quarter, setQuarter] = useState(new Date())
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
       <div>
         <DatePicker
-          id='min-date'
-          selected={minDate}
-          minDate={subDays(new Date(), 5)}
+          selected={month}
+          id='month-picker'
+          showMonthYearPicker
+          dateFormat='MM/yyyy'
           popperPlacement={popperPlacement}
-          onChange={date => setMinDate(date)}
-          customInput={<CustomInput label='Min Date' />}
+          onChange={date => setMonth(date)}
+          customInput={<CustomInput label='Month Picker' />}
         />
       </div>
       <div>
         <DatePicker
-          id='max-date'
-          selected={maxDate}
-          maxDate={addDays(new Date(), 5)}
+          showYearPicker
+          selected={year}
+          id='year-picker'
+          dateFormat='MM/yyyy'
           popperPlacement={popperPlacement}
-          onChange={date => setMaxDate(date)}
-          customInput={<CustomInput label='Max Date' />}
+          onChange={date => setYear(date)}
+          customInput={<CustomInput label='Year Picker' />}
+        />
+      </div>
+      <div>
+        <DatePicker
+          selected={quarter}
+          id='quarter-picker'
+          showQuarterYearPicker
+          dateFormat='yyyy, QQQ'
+          popperPlacement={popperPlacement}
+          onChange={date => setQuarter(date)}
+          customInput={<CustomInput label='Quarter Picker' />}
         />
       </div>
     </Box>
   )
 }
 
-export default PickersMinMax
-`}</code>
-  </pre>
-)
-
-export const PickersCustomInputJSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** React Imports
-import { forwardRef } from 'react'
-
-// ** MUI Imports
-import TextField from '@mui/material/TextField'
-
-const PickersComponent = forwardRef(({ ...props }, ref) => {
-  // ** Props
-  const { label, readOnly } = props
-
-  return (
-    <TextField inputRef={ref} {...props} label={label || ''} {...(readOnly && { inputProps: { readOnly: true } })} />
-  )
-})
-
-export default PickersComponent
+export default PickersMonthYear
 `}</code>
   </pre>
 )
@@ -450,6 +462,7 @@ const PickersOptions = ({ popperPlacement }) => {
       </div>
       <div>
         <DatePicker
+          weekLabel='Wk'
           showWeekNumbers
           id='picker-week-num'
           selected={dateWeekNum}
@@ -470,6 +483,8 @@ const PickersOptions = ({ popperPlacement }) => {
       </div>
       <div>
         <DatePicker
+          showYearDropdown
+          showMonthDropdown
           selected={dateOpen}
           id='picker-open-date'
           popperPlacement={popperPlacement}
@@ -576,6 +591,118 @@ export default PickersRange
   </pre>
 )
 
+export const PickersCustomInputJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { forwardRef } from 'react'
+
+// ** MUI Imports
+import TextField from '@mui/material/TextField'
+
+const PickersComponent = forwardRef(({ ...props }, ref) => {
+  // ** Props
+  const { label, readOnly } = props
+
+  return (
+    <TextField inputRef={ref} {...props} label={label || ''} {...(readOnly && { inputProps: { readOnly: true } })} />
+  )
+})
+
+export default PickersComponent
+`}</code>
+  </pre>
+)
+
+export const PickersIncludeExcludeJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { useState } from 'react'
+
+// ** MUI Imports
+import Box from '@mui/material/Box'
+
+// ** Third Party Imports
+import addDays from 'date-fns/addDays'
+import subDays from 'date-fns/subDays'
+import setHours from 'date-fns/setHours'
+import DatePicker from 'react-datepicker'
+import setMinutes from 'date-fns/setMinutes'
+
+// ** Custom Component Imports
+import CustomInput from './PickersCustomInput'
+
+const PickersIncludeExclude = ({ popperPlacement }) => {
+  // ** States
+  const [date, setDate] = useState(new Date())
+  const [dateExclude, setDateExclude] = useState(new Date())
+  const [time, setTime] = useState(setHours(setMinutes(new Date(), 0), 18))
+  const [timeExclude, setTimeExclude] = useState(setHours(setMinutes(new Date(), 0), 18))
+
+  return (
+    <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
+      <div>
+        <DatePicker
+          selected={date}
+          id='include-dates'
+          popperPlacement={popperPlacement}
+          onChange={date => setDate(date)}
+          customInput={<CustomInput label='Include Dates' />}
+          includeDates={[new Date(), addDays(new Date(), 1)]}
+        />
+      </div>
+      <div>
+        <DatePicker
+          id='exclude-dates'
+          selected={dateExclude}
+          popperPlacement={popperPlacement}
+          onChange={date => setDateExclude(date)}
+          customInput={<CustomInput label='Exclude Dates' />}
+          excludeDates={[subDays(new Date(), 1), subDays(new Date(), 2)]}
+        />
+      </div>
+      <div>
+        <DatePicker
+          showTimeSelect
+          selected={time}
+          id='include-time'
+          dateFormat='MM/dd/yyyy h:mm aa'
+          popperPlacement={popperPlacement}
+          onChange={date => setTime(date)}
+          customInput={<CustomInput label='Include Time' />}
+          includeTimes={[
+            setHours(setMinutes(new Date(), 0), 17),
+            setHours(setMinutes(new Date(), 30), 18),
+            setHours(setMinutes(new Date(), 30), 19),
+            setHours(setMinutes(new Date(), 30), 17)
+          ]}
+        />
+      </div>
+      <div>
+        <DatePicker
+          showTimeSelect
+          id='exclude-time'
+          selected={timeExclude}
+          dateFormat='MM/dd/yyyy h:mm aa'
+          popperPlacement={popperPlacement}
+          onChange={date => setTimeExclude(date)}
+          customInput={<CustomInput label='Exclude Time' />}
+          excludeTimes={[
+            setHours(setMinutes(new Date(), 0), 17),
+            setHours(setMinutes(new Date(), 30), 18),
+            setHours(setMinutes(new Date(), 30), 19),
+            setHours(setMinutes(new Date(), 30), 17)
+          ]}
+        />
+      </div>
+    </Box>
+  )
+}
+
+export default PickersIncludeExclude
+`}</code>
+  </pre>
+)
+
 export const PickersTimeJSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** React Imports
@@ -628,70 +755,6 @@ const PickersTime = ({ popperPlacement }) => {
 }
 
 export default PickersTime
-`}</code>
-  </pre>
-)
-
-export const PickersMonthYearQuarterJSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** React Imports
-import { useState } from 'react'
-
-// ** MUI Imports
-import Box from '@mui/material/Box'
-
-// ** Third Party Imports
-import DatePicker from 'react-datepicker'
-
-// ** Custom Component Imports
-import CustomInput from './PickersCustomInput'
-
-const PickersMonthYear = ({ popperPlacement }) => {
-  // ** States
-  const [year, setYear] = useState(new Date())
-  const [month, setMonth] = useState(new Date())
-  const [quarter, setQuarter] = useState(new Date())
-
-  return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
-      <div>
-        <DatePicker
-          selected={month}
-          id='month-picker'
-          showMonthYearPicker
-          dateFormat='MM/yyyy'
-          popperPlacement={popperPlacement}
-          onChange={date => setMonth(date)}
-          customInput={<CustomInput label='Month Picker' />}
-        />
-      </div>
-      <div>
-        <DatePicker
-          showYearPicker
-          selected={year}
-          id='year-picker'
-          dateFormat='MM/yyyy'
-          popperPlacement={popperPlacement}
-          onChange={date => setYear(date)}
-          customInput={<CustomInput label='Year Picker' />}
-        />
-      </div>
-      <div>
-        <DatePicker
-          selected={quarter}
-          id='quarter-picker'
-          showQuarterYearPicker
-          dateFormat='yyyy, QQQ'
-          popperPlacement={popperPlacement}
-          onChange={date => setQuarter(date)}
-          customInput={<CustomInput label='Quarter Picker' />}
-        />
-      </div>
-    </Box>
-  )
-}
-
-export default PickersMonthYear
 `}</code>
   </pre>
 )
@@ -753,62 +816,84 @@ export default PickersSpecificRange
   </pre>
 )
 
-export const PickersLocaleJSXCode = (
+export const PickersCustomInputTSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { forwardRef } from 'react'
+
+// ** MUI Imports
+import TextField from '@mui/material/TextField'
+
+interface PickerProps {
+  label?: string
+  readOnly?: boolean
+}
+
+const PickersComponent = forwardRef(({ ...props }: PickerProps, ref) => {
+  // ** Props
+  const { label, readOnly } = props
+
+  return (
+    <TextField inputRef={ref} {...props} label={label || ''} {...(readOnly && { inputProps: { readOnly: true } })} />
+  )
+})
+
+export default PickersComponent
+`}</code>
+  </pre>
+)
+
+export const PickersCustomizationTSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** React Imports
 import { useState } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
-import fr from 'date-fns/locale/fr'
-import ar from 'date-fns/locale/ar-SA'
-import en from 'date-fns/locale/en-US'
-import { useTranslation } from 'react-i18next'
-import DatePicker, { registerLocale } from 'react-datepicker'
+
+// ** Third Party Imports
+import subDays from 'date-fns/subDays'
+import addDays from 'date-fns/addDays'
+import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
+
+// ** Types
+import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 // ** Custom Component Imports
 import CustomInput from './PickersCustomInput'
 
-const langObj = { fr, ar, en }
-
-const PickersLocale = ({ popperPlacement }) => {
+const PickersCustomization = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
   // ** States
-  const [date, setDate] = useState(new Date())
-  const [time, setTime] = useState(new Date())
-
-  // ** Hooks
-  const { i18n } = useTranslation()
-  registerLocale(i18n.language, langObj[i18n.language])
+  const [dateFormat, setDateFormat] = useState<DateType>(new Date())
+  const [dateHighlight, setDateHighlight] = useState<DateType>(new Date())
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
       <div>
         <DatePicker
-          selected={date}
-          id='locale-picker'
-          locale={i18n.language}
+          id='custom-format'
+          selected={dateFormat}
+          dateFormat='MMMM d, yyyy'
           popperPlacement={popperPlacement}
-          onChange={date => setDate(date)}
-          customInput={<CustomInput label='Locale Dates' />}
+          onChange={(date: Date) => setDateFormat(date)}
+          customInput={<CustomInput label='Custom Date Format' />}
         />
       </div>
       <div>
         <DatePicker
-          showTimeSelect
-          selected={time}
-          id='locale-time'
-          locale={i18n.language}
-          dateFormat='MM/dd/yyyy h:mm aa'
+          id='highlight-dates'
+          selected={dateHighlight}
           popperPlacement={popperPlacement}
-          onChange={date => setTime(date)}
-          customInput={<CustomInput label='Locale Time' />}
+          onChange={(date: Date) => setDateHighlight(date)}
+          customInput={<CustomInput label='Highlight Dates' />}
+          highlightDates={[subDays(new Date(), 7), addDays(new Date(), 7)]}
         />
       </div>
     </Box>
   )
 }
 
-export default PickersLocale
+export default PickersCustomization
 `}</code>
   </pre>
 )
@@ -906,7 +991,7 @@ export default PickersIncludeExclude
   </pre>
 )
 
-export const PickersMinMaxTSXCode = (
+export const PickersLocaleTSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** React Imports
 import { useState } from 'react'
@@ -915,9 +1000,12 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 
 // ** Third Party Imports
-import subDays from 'date-fns/subDays'
-import addDays from 'date-fns/addDays'
-import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
+import { Locale } from 'date-fns'
+import fr from 'date-fns/locale/fr'
+import ar from 'date-fns/locale/ar-SA'
+import en from 'date-fns/locale/en-US'
+import { useTranslation } from 'react-i18next'
+import DatePicker, { registerLocale, ReactDatePickerProps } from 'react-datepicker'
 
 // ** Types
 import { DateType } from 'src/types/forms/reactDatepickerTypes'
@@ -925,70 +1013,52 @@ import { DateType } from 'src/types/forms/reactDatepickerTypes'
 // ** Custom Component Imports
 import CustomInput from './PickersCustomInput'
 
-const PickersMinMax = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
+const langObj: { [key: string]: Locale } = { fr, ar, en }
+
+const PickersLocale = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
   // ** States
-  const [minDate, setMinDate] = useState<DateType>(new Date())
-  const [maxDate, setMaxDate] = useState<DateType>(new Date())
+  const [date, setDate] = useState<DateType>(new Date())
+  const [time, setTime] = useState<DateType>(new Date())
+
+  // ** Hooks
+  const { i18n } = useTranslation()
+
+  registerLocale(i18n.language, langObj[i18n.language])
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
       <div>
         <DatePicker
-          id='min-date'
-          selected={minDate}
-          minDate={subDays(new Date(), 5)}
+          selected={date}
+          id='locale-picker'
+          locale={i18n.language}
           popperPlacement={popperPlacement}
-          onChange={(date: Date) => setMinDate(date)}
-          customInput={<CustomInput label='Min Date' />}
+          onChange={(date: Date) => setDate(date)}
+          customInput={<CustomInput label='Locale Dates' />}
         />
       </div>
       <div>
         <DatePicker
-          id='max-date'
-          selected={maxDate}
-          maxDate={addDays(new Date(), 5)}
+          showTimeSelect
+          selected={time}
+          id='locale-time'
+          locale={i18n.language}
+          dateFormat='MM/dd/yyyy h:mm aa'
           popperPlacement={popperPlacement}
-          onChange={(date: Date) => setMaxDate(date)}
-          customInput={<CustomInput label='Max Date' />}
+          onChange={(date: Date) => setTime(date)}
+          customInput={<CustomInput label='Locale Time' />}
         />
       </div>
     </Box>
   )
 }
 
-export default PickersMinMax
+export default PickersLocale
 `}</code>
   </pre>
 )
 
-export const PickersCustomInputTSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** React Imports
-import { forwardRef } from 'react'
-
-// ** MUI Imports
-import TextField from '@mui/material/TextField'
-
-interface PickerProps {
-  label?: string
-  readOnly?: boolean
-}
-
-const PickersComponent = forwardRef(({ ...props }: PickerProps, ref) => {
-  // ** Props
-  const { label, readOnly } = props
-
-  return (
-    <TextField inputRef={ref} {...props} label={label || ''} {...(readOnly && { inputProps: { readOnly: true } })} />
-  )
-})
-
-export default PickersComponent
-`}</code>
-  </pre>
-)
-
-export const PickersCallbacksTSXCode = (
+export const PickersBasicTSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** React Imports
 import { useState } from 'react'
@@ -997,7 +1067,70 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 
 // ** Third Party Imports
-import toast from 'react-hot-toast'
+import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
+
+// ** Custom Component Imports
+import CustomInput from './PickersCustomInput'
+
+// ** Types
+import { DateType } from 'src/types/forms/reactDatepickerTypes'
+
+const PickersBasic = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
+  // ** States
+  const [date, setDate] = useState<DateType>(new Date())
+
+  return (
+    <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
+      <div>
+        <DatePicker
+          selected={date}
+          id='basic-input'
+          popperPlacement={popperPlacement}
+          onChange={(date: Date) => setDate(date)}
+          placeholderText='Click to select a date'
+          customInput={<CustomInput label='Basic' />}
+        />
+      </div>
+      <div>
+        <DatePicker
+          disabled
+          selected={date}
+          id='disabled-input'
+          popperPlacement={popperPlacement}
+          onChange={(date: Date) => setDate(date)}
+          placeholderText='Click to select a date'
+          customInput={<CustomInput label='Disabled' />}
+        />
+      </div>
+      <div>
+        <DatePicker
+          readOnly
+          selected={date}
+          id='read-only-input'
+          popperPlacement={popperPlacement}
+          onChange={(date: Date) => setDate(date)}
+          placeholderText='Click to select a date'
+          customInput={<CustomInput readOnly label='Readonly' />}
+        />
+      </div>
+    </Box>
+  )
+}
+
+export default PickersBasic
+`}</code>
+  </pre>
+)
+
+export const PickersOptionsTSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { useState } from 'react'
+
+// ** MUI Imports
+import Box from '@mui/material/Box'
+
+// ** Third Party Imports
 import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
 
 // ** Types
@@ -1006,110 +1139,80 @@ import { DateType } from 'src/types/forms/reactDatepickerTypes'
 // ** Custom Component Imports
 import CustomInput from './PickersCustomInput'
 
-const PickersCallbacks = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
+const PickersOptions = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
   // ** States
-  const [date, setDate] = useState<DateType>(new Date())
+  const [dateOpen, setDateOpen] = useState<DateType>(null)
+  const [dateClear, setDateClear] = useState<DateType>(new Date())
+  const [dateFilter, setDateFilter] = useState<DateType>(new Date())
+  const [dateWeekNum, setDateWeekNum] = useState<DateType>(new Date())
+  const [dateTodayBtn, setDateTodayBtn] = useState<DateType>(new Date())
 
-  const handlePickerCallback = (msg: string) => {
-    toast(msg, { duration: 2000 })
+  const isWeekday = (date: Date) => {
+    const day = new Date(date).getDay()
+
+    return day !== 0 && day !== 6
   }
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
       <div>
         <DatePicker
-          selected={date}
-          id='callback-open'
-          dateFormat='MM/dd/yyyy'
+          isClearable
+          id='picker-clear'
+          selected={dateClear}
           popperPlacement={popperPlacement}
-          onChange={(date: Date) => setDate(date)}
-          customInput={<CustomInput label='Open & Closed' />}
-          onCalendarOpen={() => handlePickerCallback(Selected Date: {new Date(date || '').toLocaleDateString()})}
-          onCalendarClose={() => handlePickerCallback(Selected Date: {new Date(date || '').toLocaleDateString()})}
+          customInput={<CustomInput label='Clear' />}
+          onChange={(date: Date) => setDateClear(date)}
         />
       </div>
       <div>
         <DatePicker
-          selected={date}
-          id='callback-blur'
+          weekLabel='Wk'
+          showWeekNumbers
+          id='picker-week-num'
+          selected={dateWeekNum}
           popperPlacement={popperPlacement}
-          onChange={(date: Date) => setDate(date)}
-          customInput={<CustomInput label='Blur' />}
-          onBlur={() => handlePickerCallback('Picker Closed')}
+          onChange={(date: Date) => setDateWeekNum(date)}
+          customInput={<CustomInput label='Week Numbers' />}
         />
       </div>
       <div>
         <DatePicker
-          selected={date}
-          id='callback-change'
+          id='picker-filter'
+          selected={dateFilter}
+          filterDate={isWeekday}
           popperPlacement={popperPlacement}
-          customInput={<CustomInput label='onChange' />}
-          onChange={(date: Date) => {
-            setDate(date)
-            handlePickerCallback(Selected Date: {new Date(date || '').toLocaleDateString()})
-          }}
+          onChange={(date: Date) => setDateFilter(date)}
+          customInput={<CustomInput label='Filter Dates' />}
+        />
+      </div>
+      <div>
+        <DatePicker
+          showYearDropdown
+          showMonthDropdown
+          selected={dateOpen}
+          id='picker-open-date'
+          popperPlacement={popperPlacement}
+          openToDate={new Date('1993/09/28')}
+          onChange={(date: Date) => setDateOpen(date)}
+          customInput={<CustomInput label='Open To Date' />}
+        />
+      </div>
+      <div>
+        <DatePicker
+          todayButton='Today'
+          selected={dateTodayBtn}
+          id='picker-date-today-btn'
+          popperPlacement={popperPlacement}
+          onChange={(date: Date) => setDateTodayBtn(date)}
+          customInput={<CustomInput label='Date Today Button' />}
         />
       </div>
     </Box>
   )
 }
 
-export default PickersCallbacks
-`}</code>
-  </pre>
-)
-
-export const PickersCustomizationTSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** React Imports
-import { useState } from 'react'
-
-// ** MUI Imports
-import Box from '@mui/material/Box'
-
-// ** Third Party Imports
-import subDays from 'date-fns/subDays'
-import addDays from 'date-fns/addDays'
-import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
-
-// ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
-
-// ** Custom Component Imports
-import CustomInput from './PickersCustomInput'
-
-const PickersCustomization = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
-  // ** States
-  const [dateFormat, setDateFormat] = useState<DateType>(new Date())
-  const [dateHighlight, setDateHighlight] = useState<DateType>(new Date())
-
-  return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
-      <div>
-        <DatePicker
-          id='custom-format'
-          selected={dateFormat}
-          dateFormat='MMMM d, yyyy h:mm aa'
-          popperPlacement={popperPlacement}
-          onChange={(date: Date) => setDateFormat(date)}
-          customInput={<CustomInput label='Custom Date Format' />}
-        />
-      </div>
-      <div>
-        <DatePicker
-          id='highlight-dates'
-          selected={dateHighlight}
-          popperPlacement={popperPlacement}
-          onChange={(date: Date) => setDateHighlight(date)}
-          customInput={<CustomInput label='Highlight Dates' />}
-          highlightDates={[subDays(new Date(), 7), addDays(new Date(), 7)]}
-        />
-      </div>
-    </Box>
-  )
-}
-
-export default PickersCustomization
+export default PickersOptions
 `}</code>
   </pre>
 )
@@ -1211,7 +1314,67 @@ export default PickersRange
   </pre>
 )
 
-export const PickersOptionsTSXCode = (
+export const PickersSpecificRangeTSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { useState } from 'react'
+
+// ** MUI Imports
+import Box from '@mui/material/Box'
+
+// ** Third Party Imports
+import addDays from 'date-fns/addDays'
+import setHours from 'date-fns/setHours'
+import setMinutes from 'date-fns/setMinutes'
+import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
+
+// ** Types
+import { DateType } from 'src/types/forms/reactDatepickerTypes'
+
+// ** Custom Component Imports
+import CustomInput from './PickersCustomInput'
+
+const PickersSpecificRange = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
+  // ** States
+  const [date, setDate] = useState<DateType>(new Date())
+  const [time, setTime] = useState<DateType>(new Date())
+
+  return (
+    <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
+      <div>
+        <DatePicker
+          selected={date}
+          id='specific-date'
+          minDate={new Date()}
+          maxDate={addDays(new Date(), 5)}
+          popperPlacement={popperPlacement}
+          onChange={(date: Date) => setDate(date)}
+          customInput={<CustomInput label='Specific Date Range' />}
+        />
+      </div>
+      <div>
+        <DatePicker
+          showTimeSelect
+          selected={time}
+          id='specific-time'
+          dateFormat='MM/dd/yyyy h:mm aa'
+          popperPlacement={popperPlacement}
+          onChange={(date: Date) => setTime(date)}
+          minTime={setHours(setMinutes(new Date(), 0), 17)}
+          maxTime={setHours(setMinutes(new Date(), 30), 20)}
+          customInput={<CustomInput label='Specific Time' />}
+        />
+      </div>
+    </Box>
+  )
+}
+
+export default PickersSpecificRange
+`}</code>
+  </pre>
+)
+
+export const PickersMonthYearQuarterTSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** React Imports
 import { useState } from 'react'
@@ -1228,77 +1391,123 @@ import { DateType } from 'src/types/forms/reactDatepickerTypes'
 // ** Custom Component Imports
 import CustomInput from './PickersCustomInput'
 
-const PickersOptions = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
+const PickersMonthYear = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
   // ** States
-  const [dateOpen, setDateOpen] = useState<DateType>(null)
-  const [dateClear, setDateClear] = useState<DateType>(new Date())
-  const [dateFilter, setDateFilter] = useState<DateType>(new Date())
-  const [dateWeekNum, setDateWeekNum] = useState<DateType>(new Date())
-  const [dateTodayBtn, setDateTodayBtn] = useState<DateType>(new Date())
-
-  const isWeekday = (date: Date) => {
-    const day = new Date(date).getDay()
-
-    return day !== 0 && day !== 6
-  }
+  const [year, setYear] = useState<DateType>(new Date())
+  const [month, setMonth] = useState<DateType>(new Date())
+  const [quarter, setQuarter] = useState<DateType>(new Date())
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
       <div>
         <DatePicker
-          isClearable
-          id='picker-clear'
-          selected={dateClear}
+          selected={month}
+          id='month-picker'
+          showMonthYearPicker
+          dateFormat='MM/yyyy'
           popperPlacement={popperPlacement}
-          customInput={<CustomInput label='Clear' />}
-          onChange={(date: Date) => setDateClear(date)}
+          onChange={(date: Date) => setMonth(date)}
+          customInput={<CustomInput label='Month Picker' />}
         />
       </div>
       <div>
         <DatePicker
-          showWeekNumbers
-          id='picker-week-num'
-          selected={dateWeekNum}
+          showYearPicker
+          selected={year}
+          id='year-picker'
+          dateFormat='MM/yyyy'
           popperPlacement={popperPlacement}
-          onChange={(date: Date) => setDateWeekNum(date)}
-          customInput={<CustomInput label='Week Numbers' />}
+          onChange={(date: Date) => setYear(date)}
+          customInput={<CustomInput label='Year Picker' />}
         />
       </div>
       <div>
         <DatePicker
-          id='picker-filter'
-          selected={dateFilter}
-          filterDate={isWeekday}
+          selected={quarter}
+          id='quarter-picker'
+          showQuarterYearPicker
+          dateFormat='yyyy, QQQ'
           popperPlacement={popperPlacement}
-          onChange={(date: Date) => setDateFilter(date)}
-          customInput={<CustomInput label='Filter Dates' />}
-        />
-      </div>
-      <div>
-        <DatePicker
-          selected={dateOpen}
-          id='picker-open-date'
-          popperPlacement={popperPlacement}
-          openToDate={new Date('1993/09/28')}
-          onChange={(date: Date) => setDateOpen(date)}
-          customInput={<CustomInput label='Open To Date' />}
-        />
-      </div>
-      <div>
-        <DatePicker
-          todayButton='Today'
-          selected={dateTodayBtn}
-          id='picker-date-today-btn'
-          popperPlacement={popperPlacement}
-          onChange={(date: Date) => setDateTodayBtn(date)}
-          customInput={<CustomInput label='Date Today Button' />}
+          onChange={(date: Date) => setQuarter(date)}
+          customInput={<CustomInput label='Quarter Picker' />}
         />
       </div>
     </Box>
   )
 }
 
-export default PickersOptions
+export default PickersMonthYear
+`}</code>
+  </pre>
+)
+
+export const PickersCallbacksTSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { useState } from 'react'
+
+// ** MUI Imports
+import Box from '@mui/material/Box'
+
+// ** Third Party Imports
+import toast from 'react-hot-toast'
+import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
+
+// ** Types
+import { DateType } from 'src/types/forms/reactDatepickerTypes'
+
+// ** Custom Component Imports
+import CustomInput from './PickersCustomInput'
+
+const PickersCallbacks = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
+  // ** States
+  const [date, setDate] = useState<DateType>(new Date())
+
+  const handlePickerCallback = (msg: string) => {
+    toast(msg, { duration: 2000 })
+  }
+
+  return (
+    <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
+      <div>
+        <DatePicker
+          selected={date}
+          id='callback-open'
+          dateFormat='MM/dd/yyyy'
+          popperPlacement={popperPlacement}
+          onChange={(date: Date) => setDate(date)}
+          customInput={<CustomInput label='Open & Closed' />}
+          onCalendarOpen={() => handlePickerCallback(Selected Date: {new Date(date || '').toLocaleDateString()})}
+          onCalendarClose={() => handlePickerCallback(Selected Date: {new Date(date || '').toLocaleDateString()})}
+        />
+      </div>
+      <div>
+        <DatePicker
+          selected={date}
+          id='callback-blur'
+          popperPlacement={popperPlacement}
+          onChange={(date: Date) => setDate(date)}
+          customInput={<CustomInput label='Blur' />}
+          onBlur={() => handlePickerCallback('Picker Closed')}
+        />
+      </div>
+      <div>
+        <DatePicker
+          selected={date}
+          id='callback-change'
+          popperPlacement={popperPlacement}
+          customInput={<CustomInput label='onChange' />}
+          onChange={(date: Date) => {
+            setDate(date)
+            handlePickerCallback(Selected Date: {new Date(date || '').toLocaleDateString()})
+          }}
+        />
+      </div>
+    </Box>
+  )
+}
+
+export default PickersCallbacks
 `}</code>
   </pre>
 )
@@ -1375,73 +1584,6 @@ export default PickersMonthYearDropdowns
   </pre>
 )
 
-export const PickersMonthYearQuarterTSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** React Imports
-import { useState } from 'react'
-
-// ** MUI Imports
-import Box from '@mui/material/Box'
-
-// ** Third Party Imports
-import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
-
-// ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
-
-// ** Custom Component Imports
-import CustomInput from './PickersCustomInput'
-
-const PickersMonthYear = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
-  // ** States
-  const [year, setYear] = useState<DateType>(new Date())
-  const [month, setMonth] = useState<DateType>(new Date())
-  const [quarter, setQuarter] = useState<DateType>(new Date())
-
-  return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
-      <div>
-        <DatePicker
-          selected={month}
-          id='month-picker'
-          showMonthYearPicker
-          dateFormat='MM/yyyy'
-          popperPlacement={popperPlacement}
-          onChange={(date: Date) => setMonth(date)}
-          customInput={<CustomInput label='Month Picker' />}
-        />
-      </div>
-      <div>
-        <DatePicker
-          showYearPicker
-          selected={year}
-          id='year-picker'
-          dateFormat='MM/yyyy'
-          popperPlacement={popperPlacement}
-          onChange={(date: Date) => setYear(date)}
-          customInput={<CustomInput label='Year Picker' />}
-        />
-      </div>
-      <div>
-        <DatePicker
-          selected={quarter}
-          id='quarter-picker'
-          showQuarterYearPicker
-          dateFormat='yyyy, QQQ'
-          popperPlacement={popperPlacement}
-          onChange={(date: Date) => setQuarter(date)}
-          customInput={<CustomInput label='Quarter Picker' />}
-        />
-      </div>
-    </Box>
-  )
-}
-
-export default PickersMonthYear
-`}</code>
-  </pre>
-)
-
 export const PickersTimeTSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** React Imports
@@ -1501,7 +1643,7 @@ export default PickersTime
   </pre>
 )
 
-export const PickersBasicTSXCode = (
+export const PickersMinMaxTSXCode = (
   <pre className='language-jsx'>
     <code className='language-jsx'>{`// ** React Imports
 import { useState } from 'react'
@@ -1510,73 +1652,8 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 
 // ** Third Party Imports
-import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
-
-// ** Custom Component Imports
-import CustomInput from './PickersCustomInput'
-
-// ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
-
-const PickersBasic = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
-  // ** States
-  const [date, setDate] = useState<DateType>(new Date())
-
-  return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
-      <div>
-        <DatePicker
-          selected={date}
-          id='basic-input'
-          popperPlacement={popperPlacement}
-          onChange={(date: Date) => setDate(date)}
-          placeholderText='Click to select a date'
-          customInput={<CustomInput label='Basic' />}
-        />
-      </div>
-      <div>
-        <DatePicker
-          disabled
-          selected={date}
-          id='disabled-input'
-          popperPlacement={popperPlacement}
-          onChange={(date: Date) => setDate(date)}
-          placeholderText='Click to select a date'
-          customInput={<CustomInput label='Disabled' />}
-        />
-      </div>
-      <div>
-        <DatePicker
-          readOnly
-          selected={date}
-          id='read-only-input'
-          popperPlacement={popperPlacement}
-          onChange={(date: Date) => setDate(date)}
-          placeholderText='Click to select a date'
-          customInput={<CustomInput readOnly label='Readonly' />}
-        />
-      </div>
-    </Box>
-  )
-}
-
-export default PickersBasic
-`}</code>
-  </pre>
-)
-
-export const PickersSpecificRangeTSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** React Imports
-import { useState } from 'react'
-
-// ** MUI Imports
-import Box from '@mui/material/Box'
-
-// ** Third Party Imports
+import subDays from 'date-fns/subDays'
 import addDays from 'date-fns/addDays'
-import setHours from 'date-fns/setHours'
-import setMinutes from 'date-fns/setMinutes'
 import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
 
 // ** Types
@@ -1585,109 +1662,38 @@ import { DateType } from 'src/types/forms/reactDatepickerTypes'
 // ** Custom Component Imports
 import CustomInput from './PickersCustomInput'
 
-const PickersSpecificRange = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
+const PickersMinMax = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
   // ** States
-  const [date, setDate] = useState<DateType>(new Date())
-  const [time, setTime] = useState<DateType>(new Date())
+  const [minDate, setMinDate] = useState<DateType>(new Date())
+  const [maxDate, setMaxDate] = useState<DateType>(new Date())
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
       <div>
         <DatePicker
-          selected={date}
-          id='specific-date'
-          minDate={new Date()}
+          id='min-date'
+          selected={minDate}
+          minDate={subDays(new Date(), 5)}
+          popperPlacement={popperPlacement}
+          onChange={(date: Date) => setMinDate(date)}
+          customInput={<CustomInput label='Min Date' />}
+        />
+      </div>
+      <div>
+        <DatePicker
+          id='max-date'
+          selected={maxDate}
           maxDate={addDays(new Date(), 5)}
           popperPlacement={popperPlacement}
-          onChange={(date: Date) => setDate(date)}
-          customInput={<CustomInput label='Specific Date Range' />}
-        />
-      </div>
-      <div>
-        <DatePicker
-          showTimeSelect
-          selected={time}
-          id='specific-time'
-          dateFormat='MM/dd/yyyy h:mm aa'
-          popperPlacement={popperPlacement}
-          onChange={(date: Date) => setTime(date)}
-          minTime={setHours(setMinutes(new Date(), 0), 17)}
-          maxTime={setHours(setMinutes(new Date(), 30), 20)}
-          customInput={<CustomInput label='Specific Time' />}
+          onChange={(date: Date) => setMaxDate(date)}
+          customInput={<CustomInput label='Max Date' />}
         />
       </div>
     </Box>
   )
 }
 
-export default PickersSpecificRange
-`}</code>
-  </pre>
-)
-
-export const PickersLocaleTSXCode = (
-  <pre className='language-jsx'>
-    <code className='language-jsx'>{`// ** React Imports
-import { useState } from 'react'
-
-// ** MUI Imports
-import Box from '@mui/material/Box'
-
-// ** Third Party Imports
-import { Locale } from 'date-fns'
-import fr from 'date-fns/locale/fr'
-import ar from 'date-fns/locale/ar-SA'
-import en from 'date-fns/locale/en-US'
-import { useTranslation } from 'react-i18next'
-import DatePicker, { registerLocale, ReactDatePickerProps } from 'react-datepicker'
-
-// ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
-
-// ** Custom Component Imports
-import CustomInput from './PickersCustomInput'
-
-const langObj: { [key: string]: Locale } = { fr, ar, en }
-
-const PickersLocale = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
-  // ** States
-  const [date, setDate] = useState<DateType>(new Date())
-  const [time, setTime] = useState<DateType>(new Date())
-
-  // ** Hooks
-  const { i18n } = useTranslation()
-
-  registerLocale(i18n.language, langObj[i18n.language])
-
-  return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap' }} className='demo-space-x'>
-      <div>
-        <DatePicker
-          selected={date}
-          id='locale-picker'
-          locale={i18n.language}
-          popperPlacement={popperPlacement}
-          onChange={(date: Date) => setDate(date)}
-          customInput={<CustomInput label='Locale Dates' />}
-        />
-      </div>
-      <div>
-        <DatePicker
-          showTimeSelect
-          selected={time}
-          id='locale-time'
-          locale={i18n.language}
-          dateFormat='MM/dd/yyyy h:mm aa'
-          popperPlacement={popperPlacement}
-          onChange={(date: Date) => setTime(date)}
-          customInput={<CustomInput label='Locale Time' />}
-        />
-      </div>
-    </Box>
-  )
-}
-
-export default PickersLocale
+export default PickersMinMax
 `}</code>
   </pre>
 )

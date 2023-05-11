@@ -10,12 +10,12 @@ import Card from '@mui/material/Card'
 import Menu from '@mui/material/Menu'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
-import { DataGrid } from '@mui/x-data-grid'
 import MenuItem from '@mui/material/MenuItem'
 import { styled } from '@mui/material/styles'
 import CardHeader from '@mui/material/CardHeader'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
+import { DataGrid, GridColDef } from '@mui/x-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -57,7 +57,7 @@ const invoiceStatusObj: InvoiceStatusObj = {
   Downloaded: { color: 'info', icon: 'mdi:arrow-down' }
 }
 
-const columns = [
+const columns: GridColDef[] = [
   {
     flex: 0.2,
     field: 'id',
@@ -161,8 +161,8 @@ const columns = [
 
 const InvoiceListTable = ({ invoiceData }: Props) => {
   // ** State
-  const [pageSize, setPageSize] = useState<number>(7)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 7 })
 
   // ** Var
   const open = Boolean(anchorEl)
@@ -203,10 +203,10 @@ const InvoiceListTable = ({ invoiceData }: Props) => {
         autoHeight
         columns={columns}
         rows={invoiceData}
-        pageSize={pageSize}
-        disableSelectionOnClick
-        rowsPerPageOptions={[7, 10, 25, 50]}
-        onPageSizeChange={newPageSize => setPageSize(newPageSize)}
+        disableRowSelectionOnClick
+        pageSizeOptions={[7, 10, 25, 50]}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
       />
     </Card>
   )

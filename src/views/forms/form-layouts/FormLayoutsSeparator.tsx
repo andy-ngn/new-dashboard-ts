@@ -200,7 +200,7 @@ const FormLayoutsSeparator = () => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label='Phone No.' placeholder='+1-123-456-8790' />
+              <TextField fullWidth type='number' label='Phone No.' placeholder='123-456-7890' />
             </Grid>
           </Grid>
         </CardContent>

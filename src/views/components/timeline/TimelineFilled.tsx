@@ -32,7 +32,7 @@ const ImgShoe = styled('img')(({ theme }) => ({
   borderRadius: theme.shape.borderRadius
 }))
 
-const TimelineLeft = () => {
+const TimelineFilled = () => {
   return (
     <Timeline>
       <TimelineItem>
@@ -185,4 +185,4 @@ const TimelineLeft = () => {
   )
 }
 
-export default TimelineLeft
+export default TimelineFilled

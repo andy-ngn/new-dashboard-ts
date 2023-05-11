@@ -18,8 +18,8 @@ import InputLabel from '@mui/material/InputLabel'
 import Typography from '@mui/material/Typography'
 import FormControl from '@mui/material/FormControl'
 import CardContent from '@mui/material/CardContent'
-import { DataGrid, GridRowId } from '@mui/x-data-grid'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
+import { DataGrid, GridColDef, GridRowId } from '@mui/x-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -102,7 +102,7 @@ const renderClient = (row: InvoiceType) => {
   }
 }
 
-const defaultColumns = [
+const defaultColumns: GridColDef[] = [
   {
     flex: 0.1,
     field: 'id',
@@ -219,11 +219,11 @@ const InvoiceList = () => {
   // ** State
   const [dates, setDates] = useState<Date[]>([])
   const [value, setValue] = useState<string>('')
-  const [pageSize, setPageSize] = useState<number>(10)
   const [statusValue, setStatusValue] = useState<string>('')
   const [endDateRange, setEndDateRange] = useState<DateType>(null)
   const [selectedRows, setSelectedRows] = useState<GridRowId[]>([])
   const [startDateRange, setStartDateRange] = useState<DateType>(null)
+  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -256,7 +256,7 @@ const InvoiceList = () => {
     setEndDateRange(end)
   }
 
-  const columns = [
+  const columns: GridColDef[] = [
     ...defaultColumns,
     {
       flex: 0.1,
@@ -366,11 +366,11 @@ const InvoiceList = () => {
               rows={store.data}
               columns={columns}
               checkboxSelection
-              disableSelectionOnClick
-              pageSize={Number(pageSize)}
-              rowsPerPageOptions={[10, 25, 50]}
-              onSelectionModelChange={rows => setSelectedRows(rows)}
-              onPageSizeChange={newPageSize => setPageSize(newPageSize)}
+              disableRowSelectionOnClick
+              pageSizeOptions={[10, 25, 50]}
+              paginationModel={paginationModel}
+              onPaginationModelChange={setPaginationModel}
+              onRowSelectionModelChange={rows => setSelectedRows(rows)}
             />
           </Card>
         </Grid>

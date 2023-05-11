@@ -237,7 +237,7 @@ const DialogAuthentication = () => {
                   <Typography variant='body2'>
                     Enter your mobile phone number with country code and we will send you a verification code.
                   </Typography>
-                  <TextField fullWidth sx={{ my: 4 }} label='Mobile Number' placeholder='+1 123 456 7890' />
+                  <TextField fullWidth sx={{ my: 4 }} type='number' label='Mobile Number' placeholder='123 456 7890' />
                   <Grid container spacing={6}>
                     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                       <Button variant='outlined' color='secondary' onClick={handleAuthDialogClose} sx={{ mr: 4 }}>
